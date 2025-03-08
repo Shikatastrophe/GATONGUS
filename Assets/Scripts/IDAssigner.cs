@@ -12,6 +12,17 @@ public class IDAssigner : MonoBehaviour
     Image image;
     Button button;
     GameManager GManager;
+
+    private void OnEnable()
+    {
+        GameManager.stopGame += disableButton;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.stopGame -= disableButton;
+    }
+
     private void Start()
     {
         image = gameObject.GetComponent<Image>();
@@ -39,6 +50,11 @@ public class IDAssigner : MonoBehaviour
         GManager.ChangeArr(ID,ply);
         GManager.switchBool();
         //update the value to the gamemanager
+        disableButton();
+    }
+
+    public void disableButton()
+    {
         button.interactable = false;
     }
 }
