@@ -9,13 +9,22 @@ public class NetworkManager : MonoBehaviour
     public string id = "p1";
     int array;
     public static Gato diosNosAmpare = new Gato();
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(initialize());
+        //StartCoroutine(initialize());
         StartCoroutine(getText());
     }
-
+    void Update()
+    {
+        if(id == "p1"){
+            GameManager.Instance.idAct = id;
+        }
+        if(id == "id1"){
+            GameManager.Instance.idAct = id;
+        }
+    }
     private void OnEnable()
     {
         GameManager.SwitchID += StartSwitch;

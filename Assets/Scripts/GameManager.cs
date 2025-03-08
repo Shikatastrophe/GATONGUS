@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
     public Color p1Color;
 
     public Color p2Color;
+
+    public GameObject eventoSistema;
+    public string idAct;
 
     public static GameManager Instance
     {
@@ -69,13 +73,25 @@ public class GameManager : MonoBehaviour
 
         victext = new TextMeshProUGUI();
 
+        eventoSistema = new GameObject();
+
+        eventoSistema = GameObject.FindGameObjectWithTag("sistemaevento");
+
         victext = GameObject.FindGameObjectWithTag("winnertext").GetComponent<TextMeshProUGUI>();
+
+        StartCoroutine(eventoApagar());
 
         MainCamera.backgroundColor = Color.blue;
 
         StartCoroutine(GetValuesOrSomethingidfkanymore());
     }
-    
+
+    public IEnumerator eventoApagar(){
+        yield return new WaitForSeconds(0.1f);
+
+        eventoSistema.SetActive(false);
+    }
+
     public IEnumerator GetValuesOrSomethingidfkanymore()
     {
         while (true)
@@ -83,8 +99,11 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             for (int i = 0; i < IDs.Length; i++)
             {
+                Debug.Log(IDs[i]);
+                Debug.Log(NetworkManager.diosNosAmpare.board[i]);
                 IDs[i] = NetworkManager.diosNosAmpare.board[i];
                 UpdateValue?.Invoke(i, NetworkManager.diosNosAmpare.board[i]);
+                activarEvento();
             }
             if (NetworkManager.diosNosAmpare.actual == 1)
             {
@@ -101,7 +120,19 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
-
+    void activarEvento(){
+        string id = idAct;
+        if(id == "p1"){
+            if(NetworkManager.diosNosAmpare.actual%2 != 0){
+                eventoSistema.SetActive(true);
+            }
+        }
+        if(id == "id1"){
+            if(NetworkManager.diosNosAmpare.actual%2 == 0){
+                eventoSistema.SetActive(true);
+            }
+        }
+    }
     public void ChangeArr(int arrpos, int ply)
     {
         Debug.Log(turnNumber);

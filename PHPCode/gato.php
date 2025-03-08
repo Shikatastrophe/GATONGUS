@@ -132,7 +132,7 @@
 
         public function turn($id, $pos) // pos en formato de array unidimensional
         {
-            // validar que sea su turno con el ID
+            //La Comprobacion se hace desde unity usando el residuo del turno actual, evitando que el jugador pueda jugar hasta que responda el otro
             
             
             // pos válida
