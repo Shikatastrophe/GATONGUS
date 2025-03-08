@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public static event Action stopGame;
 
+    public static event Action<int, int> UpdateValue;
+
     private static GameManager instance;
 
     public bool isOdd;
@@ -69,7 +71,35 @@ public class GameManager : MonoBehaviour
 
         victext = GameObject.FindGameObjectWithTag("winnertext").GetComponent<TextMeshProUGUI>();
 
-        MainCamera.backgroundColor = p1Color;
+        MainCamera.backgroundColor = Color.blue;
+
+        StartCoroutine(GetValuesOrSomethingidfkanymore());
+    }
+    
+    public IEnumerator GetValuesOrSomethingidfkanymore()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.01f);
+            for (int i = 0; i < IDs.Length; i++)
+            {
+                IDs[i] = NetworkManager.diosNosAmpare.board[i];
+                UpdateValue?.Invoke(i, NetworkManager.diosNosAmpare.board[i]);
+            }
+            if (NetworkManager.diosNosAmpare.actual == 1)
+            {
+                MainCamera.backgroundColor = p1Color;
+                isOdd = true;
+            }
+            else
+            {
+                MainCamera.backgroundColor = p1Color;
+                isOdd = false;
+            }
+            CheckForWinner1();
+            CheckForWinner2();
+            yield return new WaitForSeconds(1);
+        }
     }
 
     public void ChangeArr(int arrpos, int ply)
@@ -79,13 +109,11 @@ public class GameManager : MonoBehaviour
         if(ply == 1)
         {
             SwitchID?.Invoke(arrpos);
-            MainCamera.backgroundColor = p2Color;
             CheckForWinner1();
         }
         if (ply == 2)
         {
             SwitchID?.Invoke(arrpos);
-            MainCamera.backgroundColor = p1Color;
             CheckForWinner2();
         }
     }

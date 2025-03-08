@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour
 {
     public string id = "p1";
     int array;
+    public static Gato diosNosAmpare = new Gato();
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,7 @@ public class NetworkManager : MonoBehaviour
         while (true)
         {
 
-            UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=2&id="+id);
+            UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=2&id=id1");
             yield return www.Send();
 
             if (www.isNetworkError)
@@ -46,10 +47,10 @@ public class NetworkManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                //Debug.Log(www.downloadHandler.text);
                 //JsonUtility.ToJson(www.downloadHandler.text);
                 //JsonUtility.FromJson<GatoConstructor>(www.downloadHandler.text);
-                Debug.Log(JsonUtility.FromJson<Gato>(www.downloadHandler.text).ToString());
+                diosNosAmpare = JsonUtility.FromJson<Gato>(www.downloadHandler.text);
                 byte[] results = www.downloadHandler.data;
             }
             yield return new WaitForSeconds(1);
@@ -111,7 +112,7 @@ public class Gato
     public string score1;
     public string score2;
     public int[] board;
-
+    /*
     override public string ToString()
     {
         string data = "actual:" + actual + "\nround:" + round + "\nscore1" + score1 + "\nscore2" + score2 + "\nboard\n";
@@ -121,4 +122,5 @@ public class Gato
         }
         return data;
     }
+    */
 }

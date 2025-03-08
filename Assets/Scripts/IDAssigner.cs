@@ -16,11 +16,13 @@ public class IDAssigner : MonoBehaviour
     private void OnEnable()
     {
         GameManager.stopGame += disableButton;
+        GameManager.UpdateValue += updateValue;
     }
 
     private void OnDisable()
     {
         GameManager.stopGame -= disableButton;
+        GameManager.UpdateValue += updateValue;
     }
 
     private void Start()
@@ -29,6 +31,28 @@ public class IDAssigner : MonoBehaviour
         button = gameObject.GetComponent<Button>();
         GManager = GameManager.Instance;
         ID = ID - 1;
+    }
+
+    public void updateValue(int id, int val)
+    {
+        if (id == ID)
+        {
+            switch (val)
+            {
+                case 0:
+                    button.interactable = true;
+                    image.color = Color.black;
+                    break;
+                case 1:
+                    image.color = p1Color;
+                    disableButton();
+                    break;
+                case 2:
+                    image.color = p2Color;
+                    disableButton();
+                    break;
+            }
+        }
     }
 
     public void ChangeColor()
