@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static event Action<int> SwitchID;
+
     public static event Action stopGame;
 
     private static GameManager instance;
@@ -76,11 +78,13 @@ public class GameManager : MonoBehaviour
         IDs[arrpos] = ply;
         if(ply == 1)
         {
+            SwitchID?.Invoke(arrpos);
             MainCamera.backgroundColor = p2Color;
             CheckForWinner1();
         }
         if (ply == 2)
         {
+            SwitchID?.Invoke(arrpos);
             MainCamera.backgroundColor = p1Color;
             CheckForWinner2();
         }
