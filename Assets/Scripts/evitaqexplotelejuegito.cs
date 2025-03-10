@@ -13,7 +13,7 @@ public class evitaqexplotelejuegito : MonoBehaviour
 
     IEnumerator initialize()
     {
-        UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=1");
+        UnityWebRequest www = UnityWebRequest.Get("http://gatongus.test/gato.php?action=1");
         yield return www.Send();
 
         if (www.isNetworkError)

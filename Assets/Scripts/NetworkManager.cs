@@ -47,7 +47,7 @@ public class NetworkManager : MonoBehaviour
         while (true)
         {
 
-            UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=2&id=id1");
+            UnityWebRequest www = UnityWebRequest.Get("http://gatongus.test/gato.php?action=2&id=id1");
             yield return www.Send();
 
             if (www.isNetworkError)
@@ -68,7 +68,7 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator initialize()
     {
-        UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=1");
+        UnityWebRequest www = UnityWebRequest.Get("http://gatongus.test/gato.php?action=1");
         yield return www.Send();
 
         if (www.isNetworkError)
@@ -89,7 +89,7 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator Tirada()
     {
-        UnityWebRequest www = UnityWebRequest.Get("http://localhost/gato.php?action=3&id=" + id + "&pos=" + array);
+        UnityWebRequest www = UnityWebRequest.Get("http://gatongus.test/gato.php?action=3&id=" + id + "&pos=" + array);
         yield return www.Send();
 
         if (www.isNetworkError)
