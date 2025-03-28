@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static event Action<int> SwitchID;
+    public static event Action<int,int> SwitchID;
 
     public static event Action stopGame;
 
@@ -34,31 +35,24 @@ public class GameManager : MonoBehaviour
     public GameObject eventoSistema;
     public string idAct;
 
-    public static GameManager Instance
+
+    public int id;
+    public static GameManager Instance{ get; private set; }
+
+    private void Awake()
     {
-        get
+        if (Instance != null && Instance != this) // if we are the instance this is fine
         {
-            if(instance == null)
-            {
-                GameObject gamemanager = new GameObject();
-                instance = gamemanager.AddComponent<GameManager>();
-                gamemanager.name = "Game Manager Singleton";
-            }
-            return instance;
+            Destroy(this);
+            return;
         }
+
+        Instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        if(instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-
         MainCamera = Camera.main;
 
         p1Color = new Vector4(0, 237, 255);
@@ -100,12 +94,12 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < IDs.Length; i++)
             {
                 Debug.Log(IDs[i]);
-                Debug.Log(NetworkManager.diosNosAmpare.board[i]);
-                IDs[i] = NetworkManager.diosNosAmpare.board[i];
-                UpdateValue?.Invoke(i, NetworkManager.diosNosAmpare.board[i]);
+                Debug.Log(ChatRenovadoTerrorOzuna.gatopro.board[i]);
+                IDs[i] = ChatRenovadoTerrorOzuna.gatopro.board[i];
+                UpdateValue?.Invoke(i, ChatRenovadoTerrorOzuna.gatopro.board[i]);
                 activarEvento();
             }
-            if (NetworkManager.diosNosAmpare.actual == 1)
+            if (ChatRenovadoTerrorOzuna.gatopro.actual == 1)
             {
                 MainCamera.backgroundColor = p1Color;
                 isOdd = true;
@@ -123,12 +117,12 @@ public class GameManager : MonoBehaviour
     void activarEvento(){
         string id = idAct;
         if(id == "p1"){
-            if(NetworkManager.diosNosAmpare.actual%2 != 0){
+            if(ChatRenovadoTerrorOzuna.gatopro.actual%2 != 0){
                 eventoSistema.SetActive(true);
             }
         }
-        if(id == "id1"){
-            if(NetworkManager.diosNosAmpare.actual%2 == 0){
+        if(id == "p2"){
+            if(ChatRenovadoTerrorOzuna.gatopro.actual%2 == 0){
                 eventoSistema.SetActive(true);
             }
         }
@@ -139,12 +133,12 @@ public class GameManager : MonoBehaviour
         IDs[arrpos] = ply;
         if(ply == 1)
         {
-            SwitchID?.Invoke(arrpos);
+            SwitchID?.Invoke(arrpos,id);
             CheckForWinner1();
         }
         if (ply == 2)
         {
-            SwitchID?.Invoke(arrpos);
+            SwitchID?.Invoke(arrpos,id);
             CheckForWinner2();
         }
     }

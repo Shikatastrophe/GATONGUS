@@ -1001,7 +1001,8 @@ MonoBehaviour:
   p1Color: {r: 0, g: 0.92941177, b: 1, a: 1}
   p2Color: {r: 0.96862745, g: 0, b: 1, a: 1}
   eventoSistema: {fileID: 415316550}
-  idAct: 
+  idAct: p1
+  id: 1
 --- !u!4 &1087512617
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,7 +1632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1960442895}
-  - component: {fileID: 1960442896}
+  - component: {fileID: 1960442897}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -1654,7 +1655,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1960442896
+--- !u!114 &1960442897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1663,10 +1664,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960442894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85fc34500530e9d45ab8b697c11e09d1, type: 3}
+  m_Script: {fileID: 11500000, guid: f51949ba49247884597f614e0537fb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: p1
+  baseUrl: http://localhost:8080
+  chambium: 1
 --- !u!1001 &2093582387
 PrefabInstance:
   m_ObjectHideFlags: 0

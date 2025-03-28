@@ -17,6 +17,7 @@ public class IDAssigner : MonoBehaviour
     {
         GameManager.stopGame += disableButton;
         GameManager.UpdateValue += updateValue;
+        GManager = GameManager.Instance;
     }
 
     private void OnDisable()

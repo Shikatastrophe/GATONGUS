@@ -25,6 +25,7 @@ public class NetworkManager : MonoBehaviour
             GameManager.Instance.idAct = id;
         }
     }
+    /*
     private void OnEnable()
     {
         GameManager.SwitchID += StartSwitch;
@@ -34,7 +35,7 @@ public class NetworkManager : MonoBehaviour
     {
         GameManager.SwitchID -= StartSwitch;
     }
-
+    */
 
     public void StartSwitch(int arrpos)
     {
