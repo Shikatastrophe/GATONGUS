@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log(ChatRenovadoTerrorOzuna.gatopro.board[i]);
                 IDs[i] = ChatRenovadoTerrorOzuna.gatopro.board[i];
                 UpdateValue?.Invoke(i, ChatRenovadoTerrorOzuna.gatopro.board[i]);
-                activarEvento();
+                
             }
             if (ChatRenovadoTerrorOzuna.gatopro.actual == 1)
             {
@@ -120,10 +120,18 @@ public class GameManager : MonoBehaviour
             if(ChatRenovadoTerrorOzuna.gatopro.actual%2 != 0){
                 eventoSistema.SetActive(true);
             }
+            else
+            {
+                eventoSistema.SetActive(false);
+            }
         }
         if(id == "p2"){
             if(ChatRenovadoTerrorOzuna.gatopro.actual%2 == 0){
                 eventoSistema.SetActive(true);
+            }
+            else
+            {
+                eventoSistema.SetActive(false);
             }
         }
     }
@@ -141,6 +149,11 @@ public class GameManager : MonoBehaviour
             SwitchID?.Invoke(arrpos,id);
             CheckForWinner2();
         }
+    }
+
+    private void Update()
+    {
+        activarEvento();
     }
 
     public void CheckForWinner1()

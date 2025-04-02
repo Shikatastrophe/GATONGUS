@@ -30,7 +30,7 @@ public class ChatRenovadoTerrorOzuna : MonoBehaviour
     }
 
 
-
+    
 
     void Start()
     {
