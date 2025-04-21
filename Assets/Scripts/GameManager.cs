@@ -31,8 +31,9 @@ public class GameManager : MonoBehaviour
     public Color p1Color;
 
     public Color p2Color;
-
+    public bool hasGameStarted;
     public GameObject eventoSistema;
+    public Chat2 Chat2;
     public string idAct;
 
 
@@ -55,9 +56,9 @@ public class GameManager : MonoBehaviour
     {
         MainCamera = Camera.main;
 
-        p1Color = new Vector4(0, 237, 255);
+        p1Color = new Vector4(0, 237, 255, 100);
 
-        p2Color = new Vector4(247, 0, 255);
+        p2Color = new Vector4(247, 0, 255, 100);
 
         isOdd = true;
 
@@ -73,11 +74,13 @@ public class GameManager : MonoBehaviour
 
         victext = GameObject.FindGameObjectWithTag("winnertext").GetComponent<TextMeshProUGUI>();
 
-        StartCoroutine(eventoApagar());
+        //StartCoroutine(eventoApagar());
 
         MainCamera.backgroundColor = Color.blue;
 
         StartCoroutine(GetValuesOrSomethingidfkanymore());
+
+        hasGameStarted = false;
     }
 
     public IEnumerator eventoApagar(){
@@ -90,35 +93,51 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.5f);
             for (int i = 0; i < IDs.Length; i++)
             {
-                Debug.Log(IDs[i]);
-                Debug.Log(ChatRenovadoTerrorOzuna.gatopro.board[i]);
-                IDs[i] = ChatRenovadoTerrorOzuna.gatopro.board[i];
-                UpdateValue?.Invoke(i, ChatRenovadoTerrorOzuna.gatopro.board[i]);
+                //Debug.Log(IDs[i]);
+                //Debug.Log(Chat2.gato.board[i]);
+                IDs[i] = Chat2.gato.board[i];
+                UpdateValue?.Invoke(i, Chat2.gato.board[i]);
                 
             }
-            if (ChatRenovadoTerrorOzuna.gatopro.actual == 1)
+            if (Chat2.gato.actual == 1)
             {
-                MainCamera.backgroundColor = p1Color;
+                //MainCamera.backgroundColor = p1Color;
                 isOdd = true;
             }
             else
             {
-                MainCamera.backgroundColor = p1Color;
+                //MainCamera.backgroundColor = p1Color;
                 isOdd = false;
             }
+            yield return new WaitForSeconds(0.5f);
             CheckForWinner1();
             CheckForWinner2();
-            yield return new WaitForSeconds(1);
         }
     }
     void activarEvento(){
         string id = idAct;
-        if(id == "p1"){
-            if(ChatRenovadoTerrorOzuna.gatopro.actual%2 != 0){
+
+        if (!hasGameStarted)
+        {
+            return;
+        }
+
+        if(Chat2.gato.actual%2 != 0)
+        {
+            MainCamera.backgroundColor = p1Color;
+        }
+        else
+        {
+            MainCamera.backgroundColor = p2Color;
+        }
+
+        if (id == "p1"){
+            if(Chat2.gato.actual%2 != 0){
                 eventoSistema.SetActive(true);
+                
             }
             else
             {
@@ -126,7 +145,7 @@ public class GameManager : MonoBehaviour
             }
         }
         if(id == "p2"){
-            if(ChatRenovadoTerrorOzuna.gatopro.actual%2 == 0){
+            if(Chat2.gato.actual%2 == 0){
                 eventoSistema.SetActive(true);
             }
             else

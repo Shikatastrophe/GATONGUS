@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "node": "file:",
     "ws": "^8.18.1"
   }
 }
