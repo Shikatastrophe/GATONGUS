@@ -9,6 +9,7 @@
   "author": "Shika, Carol, Amaury, Kaseem",
   "license": "ISC",
   "dependencies": {
+    "02_server": "file:",
     "express": "^4.21.2"
   }
 }
